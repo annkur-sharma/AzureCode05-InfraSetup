@@ -3,6 +3,3 @@ data "azurerm_subnet" "get_child_subnet_id" {
   virtual_network_name = var.child_vnet_name
   resource_group_name  = var.child_resource_group_name
 }
-
-
-

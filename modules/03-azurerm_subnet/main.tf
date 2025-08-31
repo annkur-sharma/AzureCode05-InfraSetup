@@ -4,4 +4,3 @@ resource "azurerm_subnet" "child_subnet" {
   virtual_network_name = var.child_vnet_name
   address_prefixes     = var.child_subnet_address_prefixes
 }
-

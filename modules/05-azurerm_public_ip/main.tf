@@ -5,5 +5,3 @@ resource "azurerm_public_ip" "child_public_ip" {
   allocation_method   = "Static"
   sku                 = "Standard"
 }
-
-

@@ -7,4 +7,3 @@ data "azurerm_network_security_group" "get_child_nsg" {
   name                = var.child_nsg_name
   resource_group_name = var.child_resource_group_name
 }
-

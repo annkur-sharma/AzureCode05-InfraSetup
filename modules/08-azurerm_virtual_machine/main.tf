@@ -24,6 +24,3 @@ resource "azurerm_linux_virtual_machine" "child_virtual_machine" {
     version   = "latest"
   }
 }
-
-
-

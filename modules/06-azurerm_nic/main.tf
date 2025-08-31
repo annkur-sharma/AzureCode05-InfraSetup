@@ -10,8 +10,3 @@ resource "azurerm_network_interface" "child_network_interface" {
     # public_ip_address_id          = data.azurerm_public_ip.get_child_public_ip.id  # ❌ Not needed if using Bastion to connect
   }
 }
-
-
-
-
-

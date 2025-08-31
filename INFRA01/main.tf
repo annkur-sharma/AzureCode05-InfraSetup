@@ -96,5 +96,4 @@ module "module_bastion_host" {
   child_resource_location             = var.root_resource_location
   child_subnet_name                   = var.root_subnet_name_bastion
   child_vnet_name                     = "${local.formatted_user_prefix}-${var.root_vnet_name}"
-
 }
