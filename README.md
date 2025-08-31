@@ -65,7 +65,6 @@ terraform apply
 # ❌ Do Not run terraform apply -auto-approve
 ````
 
-
 # Execution
 ### On running 'terraform apply', user is asked to provide a prefix of 8 alphanumeric characters.
 ````yaml

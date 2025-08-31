@@ -18,10 +18,10 @@ variable "child_ip_config_name" {
   type        = string
 }
 
-variable "child_public_Ip_name" {
-  description = "The name of the public IP address."
-  type        = string
-}
+# variable "child_public_Ip_name" {
+#   description = "The name of the public IP address."
+#   type        = string
+# }
 
 variable "child_subnet_name" {
   description = "The name of the subnet."

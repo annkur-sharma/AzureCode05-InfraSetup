@@ -3,6 +3,7 @@ resource "azurerm_public_ip" "child_public_ip" {
   resource_group_name = var.child_resource_group_name
   location            = var.child_resource_location
   allocation_method   = "Static"
+  sku                 = "Standard"
 }
 
 

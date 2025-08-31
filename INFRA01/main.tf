@@ -1,3 +1,11 @@
+resource "random_string" "root_random_string" {
+  length  = 8
+  upper   = false
+  lower   = true
+  numeric = true
+  special = false
+}
+
 module "module_resource_group" {
   source                    = "../modules/01-azurerm_resource_group"
   child_resource_group_name = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
@@ -22,6 +30,15 @@ module "module_subnet" {
   child_subnet_address_prefixes = var.root_subnet_address_prefixes
 }
 
+module "module_subnet_bastion" {
+  depends_on                    = [module.module_virtual_network]
+  source                        = "../modules/03-azurerm_subnet"
+  child_resource_group_name     = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
+  child_vnet_name               = "${local.formatted_user_prefix}-${var.root_vnet_name}"
+  child_subnet_name             = var.root_subnet_name_bastion
+  child_subnet_address_prefixes = var.root_subnet_address_prefixes_bastion
+}
+
 module "module_nsg" {
   depends_on                = [module.module_subnet]
   source                    = "../modules/04-azurerm_nsg"
@@ -34,7 +51,7 @@ module "module_public_ip" {
   depends_on                = [module.module_nsg]
   source                    = "../modules/05-azurerm_public_ip"
   child_resource_group_name = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
-  child_public_Ip_name      = "${local.formatted_user_prefix}-${var.root_public_Ip_name}"
+  child_public_Ip_name      = "${local.formatted_user_prefix}-${var.root_bastion_public_ip_name}"
   child_resource_location   = var.root_resource_location
 }
 
@@ -45,9 +62,9 @@ module "module_nic" {
   child_resource_location   = var.root_resource_location
   child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name}"
   child_ip_config_name      = "${local.formatted_user_prefix}-${var.root_ip_config_name}"
-  child_public_Ip_name      = "${local.formatted_user_prefix}-${var.root_public_Ip_name}"
-  child_subnet_name         = "${local.formatted_user_prefix}-${var.root_subnet_name}"
-  child_vnet_name           = "${local.formatted_user_prefix}-${var.root_vnet_name}"
+  # child_public_Ip_name      = "${local.formatted_user_prefix}-${var.root_public_Ip_name}"
+  child_subnet_name = "${local.formatted_user_prefix}-${var.root_subnet_name}"
+  child_vnet_name   = "${local.formatted_user_prefix}-${var.root_vnet_name}"
 }
 
 module "module_nic_nsg_association" {
@@ -67,4 +84,17 @@ module "module_virtual_machine" {
   child_virtual_machine_username = "${local.formatted_user_prefix}-${var.root_virtual_machine_username}"
   child_virtual_machine_password = "${local.formatted_user_prefix}-${var.root_virtual_machine_password}"
   child_nic_name                 = "${local.formatted_user_prefix}-${var.root_nic_name}"
+}
+
+module "module_bastion_host" {
+  depends_on                          = [module.module_public_ip]
+  source                              = "../modules/09-azurerm-bastion"
+  child_bastion_ip_configuration_name = var.root_bastion_ip_configuration_name
+  child_bastion_name                  = "${local.formatted_user_prefix}-${var.root_bastion_name}"
+  child_public_Ip_name                = "${local.formatted_user_prefix}-${var.root_bastion_public_ip_name}"
+  child_resource_group_name           = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
+  child_resource_location             = var.root_resource_location
+  child_subnet_name                   = var.root_subnet_name_bastion
+  child_vnet_name                     = "${local.formatted_user_prefix}-${var.root_vnet_name}"
+
 }
