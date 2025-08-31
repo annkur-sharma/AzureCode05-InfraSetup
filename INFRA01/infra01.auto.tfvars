@@ -55,3 +55,15 @@ root_bastion_ip_configuration_name = "AzureBastionIPConfig"
 
 ## ❌ Do not update this value. 
 root_bastion_name = "Bastion"
+
+## ⚠️ Do not update this value. User Prefix is automatically added to the name.
+root_loadbalancer_public_ip_name = "LbIPName"
+
+## ⚠️ Do not update this value. User Prefix is automatically added to the name.
+root_loadbalancer_frontend_name = "LBName"
+
+## ⚠️ Do not update this value. User Prefix is automatically added to the name.
+root_loadbalancer_frontend_ip_config_name = "LBIPConfig"
+
+## ⚠️ Do not update this value. User Prefix is automatically added to the name.
+root_loadbalancer_backend_address_pool_name = "LBbackpool"

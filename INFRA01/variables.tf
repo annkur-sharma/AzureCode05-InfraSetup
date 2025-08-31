@@ -64,6 +64,11 @@ variable "root_bastion_public_ip_name" {
   description = "The name of the Bastion public IP address"
 }
 
+variable "root_loadbalancer_public_ip_name" {
+  type        = string
+  description = "The name of the Bastion public IP address"
+}
+
 variable "root_nic_name" {
   type        = string
   description = "The name of the network interface."
@@ -106,5 +111,20 @@ variable "root_bastion_ip_configuration_name" {
 
 variable "root_bastion_name" {
   description = "The name of the bastion."
+  type        = string
+}
+
+variable "root_loadbalancer_frontend_name" {
+  description = "The name of the Load Balancer Frontend."
+  type        = string
+}
+
+variable "root_loadbalancer_frontend_ip_config_name" {
+  description = "The name of the Load Balancer Frontend IP Configuration Name."
+  type        = string
+}
+
+variable "root_loadbalancer_backend_address_pool_name" {
+  description = "The name of the Load Balancer Backend Pool."
   type        = string
 }

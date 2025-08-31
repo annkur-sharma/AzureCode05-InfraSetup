@@ -5,7 +5,7 @@ output "root_output_resource_group_name" {
 
 output "root_output_public_ip" {
   description = "Public IP: "
-  value = module.module_public_ip.child_output_public_IP
+  value = module.module_public_ip_bastion.child_output_public_IP
 }
 
 output "root_output_virtual_machine" {
