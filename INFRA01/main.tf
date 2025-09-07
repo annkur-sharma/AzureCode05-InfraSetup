@@ -151,7 +151,7 @@ module "module_bastion_host" {
 
 # Load Balancer Frontend with Public IP
 module "module_loadbalancer_frontend" {
-  depends_on                                   = [module.module_bastion_host]
+  depends_on                                   = [module.module_bastion_host, module.module_public_ip_loadbalancer_frontend]
   source                                       = "../modules/10-azurerm_loadbalancer"
   child_loadbalancer_frontend_ip_config_name   = "${local.formatted_user_prefix}-${var.root_loadbalancer_frontend_ip_config_name}"
   child_loadbalancer_name                      = "${local.formatted_user_prefix}-${var.root_loadbalancer_frontend_name}"
