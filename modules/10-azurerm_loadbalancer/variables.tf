@@ -28,23 +28,3 @@ variable "child_loadbalancer_backend_address_pool_name" {
   type        = string
 }
 
-variable "child_nic1_name" {
-  description = "The name of the VM NIC."
-  type        = string
-}
-
-variable "child_nic2_name" {
-  description = "The name of the VM NIC."
-  type        = string
-}
-
-variable "child_ip_config_name1" {
-  description = "The IP Config of the NIC."
-  type        = string
-}
-
-variable "child_ip_config_name2" {
-  description = "The IP Config of the NIC."
-  type        = string
-}
-

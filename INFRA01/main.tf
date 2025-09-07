@@ -77,8 +77,8 @@ module "module_nic1" {
   child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name1}"
   child_ip_config_name      = "${local.formatted_user_prefix}-${var.root_ip_config_name1}"
   # child_public_Ip_name    = "${local.formatted_user_prefix}-${var.root_public_Ip_name}"
-  child_subnet_name         = "${local.formatted_user_prefix}-${var.root_subnet_name}"
-  child_vnet_name           = "${local.formatted_user_prefix}-${var.root_vnet_name}"
+  child_subnet_name = "${local.formatted_user_prefix}-${var.root_subnet_name}"
+  child_vnet_name   = "${local.formatted_user_prefix}-${var.root_vnet_name}"
 }
 
 # NSG-NIC association for Virtual Machine 1
@@ -111,8 +111,8 @@ module "module_nic2" {
   child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name2}"
   child_ip_config_name      = "${local.formatted_user_prefix}-${var.root_ip_config_name2}"
   # child_public_Ip_name    = "${local.formatted_user_prefix}-${var.root_public_Ip_name}"
-  child_subnet_name         = "${local.formatted_user_prefix}-${var.root_subnet_name}"
-  child_vnet_name           = "${local.formatted_user_prefix}-${var.root_vnet_name}"
+  child_subnet_name = "${local.formatted_user_prefix}-${var.root_subnet_name}"
+  child_vnet_name   = "${local.formatted_user_prefix}-${var.root_vnet_name}"
 }
 
 # NSG-NIC association for Virtual Machine 2
@@ -159,8 +159,26 @@ module "module_loadbalancer_frontend" {
   child_resource_group_name                    = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
   child_resource_location                      = var.root_resource_location
   child_loadbalancer_backend_address_pool_name = "${local.formatted_user_prefix}-${var.root_loadbalancer_backend_address_pool_name}"
-  child_nic1_name                              = "${local.formatted_user_prefix}-${var.root_nic_name1}"
-  child_nic2_name                              = "${local.formatted_user_prefix}-${var.root_nic_name2}"
-  child_ip_config_name1                        = "${local.formatted_user_prefix}-${var.root_ip_config_name1}"
-  child_ip_config_name2                        = "${local.formatted_user_prefix}-${var.root_ip_config_name2}"
+}
+
+# VM NIC-LB Backend Pool association 1
+module "module_vm_nic_lb_backend_address_pool_association1" {
+  depends_on                                   = [module.module_loadbalancer_frontend]
+  source                                       = "../modules/11-azurerm_vm_nic_lb_backendpool_association"
+  child_nic_name                               = "${local.formatted_user_prefix}-${var.root_nic_name1}"
+  child_resource_group_name                    = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
+  child_loadbalancer_name                      = "${local.formatted_user_prefix}-${var.root_loadbalancer_frontend_name}"
+  child_loadbalancer_backend_address_pool_name = "${local.formatted_user_prefix}-${var.root_loadbalancer_backend_address_pool_name}"
+  child_backend_address_pool_ip_config_name    = "${local.formatted_user_prefix}-${var.root_ip_config_name1}"
+}
+
+# VM NIC-LB Backend Pool association 2
+module "module_vm_nic_lb_backend_address_pool_association2" {
+  depends_on                                   = [module.module_loadbalancer_frontend]
+  source                                       = "../modules/11-azurerm_vm_nic_lb_backendpool_association"
+  child_nic_name                               = "${local.formatted_user_prefix}-${var.root_nic_name2}"
+  child_resource_group_name                    = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
+  child_loadbalancer_name                      = "${local.formatted_user_prefix}-${var.root_loadbalancer_frontend_name}"
+  child_loadbalancer_backend_address_pool_name = "${local.formatted_user_prefix}-${var.root_loadbalancer_backend_address_pool_name}"
+  child_backend_address_pool_ip_config_name    = "${local.formatted_user_prefix}-${var.root_ip_config_name2}"
 }

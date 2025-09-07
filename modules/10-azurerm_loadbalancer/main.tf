@@ -46,21 +46,3 @@ resource "azurerm_lb_rule" "app_lbrule" {
   backend_address_pool_ids       = [azurerm_lb_backend_address_pool.child_loadbalancer_backend_pool.id]
   probe_id                       = azurerm_lb_probe.app_probe.id
 }
-
-# --------------------------------------
-# NIC 1 Association with LB Backend Pool
-# --------------------------------------
-resource "azurerm_network_interface_backend_address_pool_association" "nic1_lb_assoc" {
-  network_interface_id    = data.azurerm_network_interface.get_child_network_interface1.id
-  ip_configuration_name   = var.child_ip_config_name1
-  backend_address_pool_id = azurerm_lb_backend_address_pool.child_loadbalancer_backend_pool.id
-}
-
-# --------------------------------------
-# NIC 2 Association with LB Backend Pool
-# --------------------------------------
-resource "azurerm_network_interface_backend_address_pool_association" "nic2_lb_assoc" {
-  network_interface_id    = data.azurerm_network_interface.get_child_network_interface2.id
-  ip_configuration_name   = var.child_ip_config_name2
-  backend_address_pool_id = azurerm_lb_backend_address_pool.child_loadbalancer_backend_pool.id
-}
