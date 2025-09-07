@@ -1,5 +1,5 @@
 resource "random_string" "root_random_string" {
-  length  = 8
+  length  = 6
   upper   = false
   lower   = true
   numeric = true
@@ -41,7 +41,7 @@ module "module_subnet_bastion" {
   child_subnet_address_prefixes = var.root_subnet_address_prefixes_bastion
 }
 
-# NSG for Virtual Machine
+# NSG for Virtual Machine 1 and 2
 module "module_nsg" {
   depends_on                = [module.module_subnet]
   source                    = "../modules/04-azurerm_nsg"
@@ -68,38 +68,72 @@ module "module_public_ip_loadbalancer_frontend" {
   child_resource_location   = var.root_resource_location
 }
 
-# NIC for Virtual Machine
-module "module_nic" {
+# NIC for Virtual Machine 1
+module "module_nic1" {
   depends_on                = [module.module_nsg]
   source                    = "../modules/06-azurerm_nic"
   child_resource_group_name = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
   child_resource_location   = var.root_resource_location
-  child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name}"
-  child_ip_config_name      = "${local.formatted_user_prefix}-${var.root_ip_config_name}"
-  # child_public_Ip_name      = "${local.formatted_user_prefix}-${var.root_public_Ip_name}"
-  child_subnet_name = "${local.formatted_user_prefix}-${var.root_subnet_name}"
-  child_vnet_name   = "${local.formatted_user_prefix}-${var.root_vnet_name}"
+  child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name1}"
+  child_ip_config_name      = "${local.formatted_user_prefix}-${var.root_ip_config_name1}"
+  # child_public_Ip_name    = "${local.formatted_user_prefix}-${var.root_public_Ip_name}"
+  child_subnet_name         = "${local.formatted_user_prefix}-${var.root_subnet_name}"
+  child_vnet_name           = "${local.formatted_user_prefix}-${var.root_vnet_name}"
 }
 
-# NSG-NIC association for Virtual Machine
-module "module_nic_nsg_association" {
-  depends_on                = [module.module_nic]
+# NSG-NIC association for Virtual Machine 1
+module "module_nic_nsg_association1" {
+  depends_on                = [module.module_nic1]
   source                    = "../modules/07-azurerm_nic_nsg_association"
   child_resource_group_name = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
-  child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name}"
+  child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name1}"
   child_nsg_name            = "${local.formatted_user_prefix}-${var.root_nsg_name}"
 }
 
-# Virtual Machine with Private IP
-module "module_virtual_machine" {
-  depends_on                     = [module.module_nic_nsg_association]
+# Virtual Machine 1 with Private IP
+module "module_virtual_machine1" {
+  depends_on                     = [module.module_nic_nsg_association1]
   source                         = "../modules/08-azurerm_virtual_machine"
   child_resource_group_name      = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
   child_resource_location        = var.root_resource_location
-  child_virtual_machine_name     = "${local.formatted_user_prefix}-${var.root_virtual_machine_name}"
+  child_virtual_machine_name     = "${local.formatted_user_prefix}-${var.root_virtual_machine_name1}"
   child_virtual_machine_username = "${local.formatted_user_prefix}-${var.root_virtual_machine_username}"
   child_virtual_machine_password = "${local.formatted_user_prefix}-${var.root_virtual_machine_password}"
-  child_nic_name                 = "${local.formatted_user_prefix}-${var.root_nic_name}"
+  child_nic_name                 = "${local.formatted_user_prefix}-${var.root_nic_name1}"
+}
+
+# NIC 2 for Virtual Machine 2
+module "module_nic2" {
+  depends_on                = [module.module_nsg]
+  source                    = "../modules/06-azurerm_nic"
+  child_resource_group_name = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
+  child_resource_location   = var.root_resource_location
+  child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name2}"
+  child_ip_config_name      = "${local.formatted_user_prefix}-${var.root_ip_config_name2}"
+  # child_public_Ip_name    = "${local.formatted_user_prefix}-${var.root_public_Ip_name}"
+  child_subnet_name         = "${local.formatted_user_prefix}-${var.root_subnet_name}"
+  child_vnet_name           = "${local.formatted_user_prefix}-${var.root_vnet_name}"
+}
+
+# NSG-NIC association for Virtual Machine 2
+module "module_nic_nsg_association2" {
+  depends_on                = [module.module_nic2]
+  source                    = "../modules/07-azurerm_nic_nsg_association"
+  child_resource_group_name = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
+  child_nic_name            = "${local.formatted_user_prefix}-${var.root_nic_name2}"
+  child_nsg_name            = "${local.formatted_user_prefix}-${var.root_nsg_name}"
+}
+
+# Virtual Machine 2 with Private IP
+module "module_virtual_machine2" {
+  depends_on                     = [module.module_nic_nsg_association2]
+  source                         = "../modules/08-azurerm_virtual_machine"
+  child_resource_group_name      = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
+  child_resource_location        = var.root_resource_location
+  child_virtual_machine_name     = "${local.formatted_user_prefix}-${var.root_virtual_machine_name2}"
+  child_virtual_machine_username = "${local.formatted_user_prefix}-${var.root_virtual_machine_username}"
+  child_virtual_machine_password = "${local.formatted_user_prefix}-${var.root_virtual_machine_password}"
+  child_nic_name                 = "${local.formatted_user_prefix}-${var.root_nic_name2}"
 }
 
 # Bastion with Public IP
@@ -117,7 +151,7 @@ module "module_bastion_host" {
 
 # Load Balancer Frontend with Public IP
 module "module_loadbalancer_frontend" {
-  depends_on                                   = [module.module_public_ip_bastion]
+  depends_on                                   = [module.module_bastion_host]
   source                                       = "../modules/10-azurerm_loadbalancer"
   child_loadbalancer_frontend_ip_config_name   = "${local.formatted_user_prefix}-${var.root_loadbalancer_frontend_ip_config_name}"
   child_loadbalancer_name                      = "${local.formatted_user_prefix}-${var.root_loadbalancer_frontend_name}"
@@ -125,5 +159,8 @@ module "module_loadbalancer_frontend" {
   child_resource_group_name                    = "${var.root_resource_group_name}-${local.formatted_user_prefix}"
   child_resource_location                      = var.root_resource_location
   child_loadbalancer_backend_address_pool_name = "${local.formatted_user_prefix}-${var.root_loadbalancer_backend_address_pool_name}"
-  child_nic_name                               = "${local.formatted_user_prefix}-${var.root_nic_name}"
+  child_nic1_name                              = "${local.formatted_user_prefix}-${var.root_nic_name1}"
+  child_nic2_name                              = "${local.formatted_user_prefix}-${var.root_nic_name2}"
+  child_ip_config_name1                        = "${local.formatted_user_prefix}-${var.root_ip_config_name1}"
+  child_ip_config_name2                        = "${local.formatted_user_prefix}-${var.root_ip_config_name2}"
 }

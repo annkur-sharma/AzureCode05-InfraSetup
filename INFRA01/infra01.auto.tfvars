@@ -1,8 +1,8 @@
 ## ✅ Update this with your own subscription ID.
-main_provider_subscription_id = "8b10287d-12d6-41e3-b62c-33457c006e96"
+main_provider_subscription_id = "00000000-0000-0000-0000-000000000000"
 
 ## ✅ Update this with your own Azure region.
-root_resource_location = "East US"
+root_resource_location = "Australia East"
 
 ## ✅ Update this with your own VNet address space.
 root_vnet_address_space = ["10.250.0.0/16"]
@@ -31,13 +31,22 @@ root_nsg_name = "NSG"
 root_bastion_public_ip_name = "BastionIP"
 
 ## ⚠️ Do not update this value. User Prefix is automatically added to the name.
-root_nic_name = "NIC"
+root_nic_name1 = "NIC1"
 
 ## ⚠️ Do not update this value. User Prefix is automatically added to the name.
-root_ip_config_name = "IPConfig"
+root_nic_name2 = "NIC2"
 
 ## ⚠️ Do not update this value. User Prefix is automatically added to the name.
-root_virtual_machine_name = "VM"
+root_ip_config_name1 = "NIC1IPConfig"
+
+## ⚠️ Do not update this value. User Prefix is automatically added to the name.
+root_ip_config_name2 = "NIC2IPConfig"
+
+## ⚠️ Do not update this value. User Prefix is automatically added to the name.
+root_virtual_machine_name1 = "VM1"
+
+## ⚠️ Do not update this value. User Prefix is automatically added to the name.
+root_virtual_machine_name2 = "VM2"
 
 ## ⚠️ For training purpose only.   ##	❌ Not recommended to use a hardcoded username in production.
 ## ⚠️ Do not update this value. User Prefix is automatically added.
@@ -57,7 +66,7 @@ root_bastion_ip_configuration_name = "AzureBastionIPConfig"
 root_bastion_name = "Bastion"
 
 ## ⚠️ Do not update this value. User Prefix is automatically added to the name.
-root_loadbalancer_public_ip_name = "LbIPName"
+root_loadbalancer_public_ip_name = "LBIP"
 
 ## ⚠️ Do not update this value. User Prefix is automatically added to the name.
 root_loadbalancer_frontend_name = "LBName"

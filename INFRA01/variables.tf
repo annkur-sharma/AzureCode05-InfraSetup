@@ -69,17 +69,32 @@ variable "root_loadbalancer_public_ip_name" {
   description = "The name of the Bastion public IP address"
 }
 
-variable "root_nic_name" {
+variable "root_nic_name1" {
   type        = string
   description = "The name of the network interface."
 }
 
-variable "root_ip_config_name" {
+variable "root_nic_name2" {
+  type        = string
+  description = "The name of the network interface."
+}
+
+variable "root_ip_config_name1" {
   type        = string
   description = "The name of the IP configuraton"
 }
 
-variable "root_virtual_machine_name" {
+variable "root_ip_config_name2" {
+  type        = string
+  description = "The name of the IP configuraton"
+}
+
+variable "root_virtual_machine_name1" {
+  type        = string
+  description = "The name of the virtual machine."
+}
+
+variable "root_virtual_machine_name2" {
   type        = string
   description = "The name of the virtual machine."
 }
