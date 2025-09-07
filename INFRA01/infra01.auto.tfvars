@@ -1,5 +1,5 @@
 ## ✅ Update this with your own subscription ID.
-main_provider_subscription_id = "00000000-0000-0000-0000-000000000000"
+main_provider_subscription_id = "8b10287d-12d6-41e3-b62c-33457c006e96"
 
 ## ✅ Update this with your own Azure region.
 root_resource_location = "Australia East"

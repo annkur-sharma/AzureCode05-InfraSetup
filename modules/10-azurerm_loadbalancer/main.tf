@@ -11,6 +11,8 @@ resource "azurerm_lb" "child_loadbalancer_frontend" {
     name                 = var.child_loadbalancer_frontend_ip_config_name
     public_ip_address_id = data.azurerm_public_ip.get_child_public_ip_loadbalancer_frontend.id
   }
+
+  depends_on = [azurerm_public_ip.get_child_public_ip_loadbalancer_frontend]
 }
 
 # --------------------------------------
