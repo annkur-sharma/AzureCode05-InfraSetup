@@ -56,6 +56,9 @@ root_virtual_machine_username = "User1"
 ## ⚠️ Do not update this value. User Prefix is automatically added.
 root_virtual_machine_password = "Pass1@"
 
+## ❌ Do not update this value.
+root_custom_data_file = "scripts/init.sh"
+
 ## ❌ Do not update this value. The Subnet used for the Bastion Host must have the name 'AzureBastionSubnet' and the subnet mask must be at least a /26.
 root_subnet_name_bastion = "AzureBastionSubnet"
 

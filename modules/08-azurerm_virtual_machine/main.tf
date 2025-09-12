@@ -23,4 +23,6 @@ resource "azurerm_linux_virtual_machine" "child_virtual_machine" {
     sku       = "22_04-lts"
     version   = "latest"
   }
+
+  custom_data = base64encode(file(var.child_custom_data_file)) # ✅ Here it's valid
 }

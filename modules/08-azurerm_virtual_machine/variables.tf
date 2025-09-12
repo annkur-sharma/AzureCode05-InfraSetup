@@ -27,3 +27,8 @@ variable "child_nic_name" {
   description = "The name of the child NIC"
   type        = string
 }
+
+variable "child_custom_data_file" {
+  description = "The custom data file"
+  type        = string
+}

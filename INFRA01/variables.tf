@@ -109,6 +109,11 @@ variable "root_virtual_machine_password" {
   description = "The password for the virtual machine."
 }
 
+variable "root_custom_data_file" {
+  type        = string
+  description = "The initialize script for the virtual machine."
+}
+
 variable "root_subnet_name_bastion" {
   type        = string
   description = "The name of Bastion Subnet."
