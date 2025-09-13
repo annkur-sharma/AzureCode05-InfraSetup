@@ -25,13 +25,13 @@ sleep 5
 # Create and Git clone application
 mkdir application
 cd application
-git clone https://github.com/annkur-sharma/AppCode01-DevSecOps-Facts.git
+git clone https://github.com/annkur-sharma/App01-DevOps-Facts-Green.git
 
 # Remove files from html folder
 sudo rm -r /var/www/html/*
 
 # Copy files to your web server root (example for Nginx /var/www/html):
-sudo cp -r AppCode01-DevSecOps-Facts/* /var/www/html/
+sudo cp -r App01-DevOps-Facts-Green/* /var/www/html/
 
 # Generate a unique GUID for this VM (optional but recommended):
 uuidgen | sudo tee /var/www/html/guid.txt

@@ -117,7 +117,7 @@ module "module_virtual_machine1" {
   child_virtual_machine_username = "${local.formatted_user_prefix}-${var.root_virtual_machine_username}"
   child_virtual_machine_password = "${local.formatted_user_prefix}-${var.root_virtual_machine_password}"
   child_nic_name                 = "${local.formatted_user_prefix}-${var.root_nic_name1}"
-  child_custom_data_file         = var.root_custom_data_file
+  child_custom_data_file         = var.root_custom_data_file_vm1
 }
 
 # NIC 2 for Virtual Machine 2
@@ -155,7 +155,7 @@ module "module_virtual_machine2" {
   child_virtual_machine_username = "${local.formatted_user_prefix}-${var.root_virtual_machine_username}"
   child_virtual_machine_password = "${local.formatted_user_prefix}-${var.root_virtual_machine_password}"
   child_nic_name                 = "${local.formatted_user_prefix}-${var.root_nic_name2}"
-  child_custom_data_file         = var.root_custom_data_file
+  child_custom_data_file         = var.root_custom_data_file_vm2
 }
 
 # Bastion with Public IP

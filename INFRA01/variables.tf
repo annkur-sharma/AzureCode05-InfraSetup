@@ -109,7 +109,12 @@ variable "root_virtual_machine_password" {
   description = "The password for the virtual machine."
 }
 
-variable "root_custom_data_file" {
+variable "root_custom_data_file_vm1" {
+  type        = string
+  description = "The initialize script for the virtual machine."
+}
+
+variable "root_custom_data_file_vm2" {
   type        = string
   description = "The initialize script for the virtual machine."
 }
