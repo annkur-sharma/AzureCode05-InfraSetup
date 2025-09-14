@@ -16,8 +16,8 @@ crash.*.log
 # to change depending on the environment.
 *.tfvars
 *.tfvars.json
-infra01.auto.tfvars
-infra01/infra01.auto.tfvars
+INFRA01.auto.tfvars
+INFRA01/infra01.auto.tfvars
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
@@ -42,4 +42,4 @@ tfplan
 terraform.rc
 
 # Backend storage account data
-# backend-config-infra01.hcl
+backend-config-infra01.hcl
