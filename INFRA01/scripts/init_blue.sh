@@ -35,3 +35,12 @@ sudo cp -r App01-DevOps-Facts-Blue/* /var/www/html/
 
 # Generate a unique GUID for this VM (optional but recommended):
 uuidgen | sudo tee /var/www/html/guid.txt
+
+# Inject no-cache headers in nginx default site
+sudo sed -i '/server_name _;/a \
+    location ~* \.(css|js|html)$ { \
+        add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"; \
+    }' /etc/nginx/sites-available/default
+
+# Reload nginx
+sudo nginx -t && sudo systemctl reload nginx

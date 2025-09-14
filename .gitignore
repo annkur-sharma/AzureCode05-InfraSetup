@@ -42,4 +42,4 @@ tfplan
 terraform.rc
 
 # Backend storage account data
-backend-config-infra01.hcl
+# backend-config-infra01.hcl
