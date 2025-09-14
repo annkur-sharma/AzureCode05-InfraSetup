@@ -34,7 +34,7 @@ sudo rm -r /var/www/html/*
 sudo cp -r App01-DevOps-Facts-Blue/* /var/www/html/
 
 # Generate a unique GUID for this VM (optional but recommended):
-uuidgen | sudo tee /var/www/html/guid.txt
+uuidgen | sudo tee /var/www/html/guid-blue.txt
 
 # Inject no-cache headers in nginx default site
 if ! grep -q "location ~* \.(css|js|html)" /etc/nginx/sites-available/default; then
@@ -50,3 +50,6 @@ fi
 
 # Reload nginx
 sudo nginx -t && sudo systemctl reload nginx
+
+# Restart nginx
+sudo systemctl restart nginx
