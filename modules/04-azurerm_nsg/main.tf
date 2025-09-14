@@ -14,4 +14,16 @@ resource "azurerm_network_security_group" "child_nsg" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
+
+      security_rule {
+    name                       = "AllowHTTP"
+    priority                   = 110 # must be unique
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_ranges    = ["80"]
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
 }
