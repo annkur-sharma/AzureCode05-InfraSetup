@@ -37,10 +37,16 @@ sudo cp -r App01-DevOps-Facts-Blue/* /var/www/html/
 uuidgen | sudo tee /var/www/html/guid.txt
 
 # Inject no-cache headers in nginx default site
-sudo sed -i '/server_name _;/a \
-    location ~* \.(css|js|html)$ { \
-        add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"; \
-    }' /etc/nginx/sites-available/default
+if ! grep -q "location ~* \.(css|js|html)" /etc/nginx/sites-available/default; then
+  sudo sed -i '/server_name _;/a \
+      location ~* \.(css|js|html)$ { \
+          add_header Cache-Control "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" always; \
+          add_header Pragma "no-cache" always; \
+          add_header Expires "0" always; \
+          expires -1; \
+          etag off; \
+      }' /etc/nginx/sites-available/default
+fi
 
 # Reload nginx
 sudo nginx -t && sudo systemctl reload nginx
